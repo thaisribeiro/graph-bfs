@@ -1,0 +1,7 @@
+--require babel-core/register
+--require test/helper.js
+--reporter spec
+--slow 5000
+--timeout 20000
+--delay
+--compilers js:babel-register
