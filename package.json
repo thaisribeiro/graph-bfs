@@ -5,8 +5,13 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js -L --exec babel-node --presets es2015,stage-2",
-    "test:report": "NODE_ENV=test PORT=8081 nyc --reporter=html mocha -c --full-trace teste/$npm_package_config_file.js --exit",
-    "tests:report": "NODE_ENV=test PORT=8081 nyc --reporter=html mocha -c -b test/*.js --exit"
+    "test:report": "NODE_ENV=test APP_PORT=8081 nyc --reporter=html mocha -c --full-trace test/$npm_package_config_file.js --exit",
+    "tests:report": "NODE_ENV=test APP_PORT=8081 nyc --reporter=html mocha -c -b test/*.js --exit",
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
+    "babelify": "babel --ignore=node_modules,scripts,coverage,docs,sdk,test,.nyc_output ../graph-bfs -d ./dist && cp -R node_modules ./dist/node_modules && cp $npm_package_config_envFile ./dist/.env",
+    "build": "node ./scripts/build.js",
+    "lint": "eslint . --fix",
+    "precommit": "lint-staged --no-verify"
   },
   "repository": {
     "type": "git",
@@ -24,6 +29,7 @@
     "express-session": "^1.15.6",
     "express-validate": "0.0.8",
     "joi": "^14.3.0",
+    "lint-staged": "^8.1.0",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
@@ -40,6 +46,28 @@
     "querystring": "^0.2.0",
     "superagent": "^3.8.3",
     "superagent-defaults": "^0.1.14",
-    "supertest": "^3.3.0"
+    "supertest": "^3.3.0",
+    "standard": "^12.0.1",
+    "husky": "^1.2.0",
+    "jsdoc": "^3.5.5",
+    "chai": "^4.2.0",
+    "chai-subset": "^1.6.0",
+    "eslint": "^5.9.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "faker": "^4.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "node scripts/verifyCommitMsg.js"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "git add"
+    ]
   }
 }

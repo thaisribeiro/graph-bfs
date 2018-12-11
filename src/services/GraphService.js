@@ -7,13 +7,13 @@ import graphSchema from '../schemas/graph'
 /**
  *
  */
-export class GraphService {
+export default class GraphService {
   /**
      *
      * @param {*} router
      */
-  constructor(router) {
-    router.get('/graph', JoiValidate(graphSchema.get), this.get)
+  constructor (router) {
+    router.get('/graph/:id?', JoiValidate(graphSchema.get), this.get)
   }
 
   /**
@@ -23,7 +23,7 @@ export class GraphService {
    * @param {Object} response - HTTP Response
    * @param {Function} next  - Middleware
    */
-  get(request, response, next) {
+  async get (request, response, next) {
     try {
       let graph = new Graph()
       let object = fs.readFileSync('./grafo.json', 'utf-8')
@@ -35,12 +35,13 @@ export class GraphService {
 
       object.links.forEach((link) => graph.addEdge(link.source, link.target))
 
-      graph.print()
-
+      const mapAdjacent = graph.print()
       const [first] = vertex
-      graph.bfs(request.params.id ? request.params.id : first)
+      const { ...visitOrder } = await graph.bfs(request.params.id ? vertex[request.params.id] : first)
 
-      response.status(200).json({ status: 'sucesso' })
+      response.status(200).json({
+        status: 'sucesso', data: { visitOrder, mapAdjacent }
+      })
     } catch (error) {
       next(new ResourceNotFound())
     }

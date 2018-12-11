@@ -1,9 +1,8 @@
-import ResourceAlreadyExists from '../errors/ResourceAlreadyExists'
 /**
  * Class responsible for manipulating graph
  */
 export default class Graph {
-  constructor() {
+  constructor () {
     this.adjacentList = new Map()
   }
 
@@ -11,10 +10,8 @@ export default class Graph {
    * Add vertex in adjacent list
    * @param {*} vertex
    */
-  addVertex(vertex) {
+  addVertex (vertex) {
     if (!this.adjacentList.has(vertex)) this.adjacentList.set(vertex, [])
-
-    throw new ResourceAlreadyExists('Vertex already exists')
   }
 
   /**
@@ -22,7 +19,7 @@ export default class Graph {
    * @param {*} vertex
    * @param {*} node
    */
-  addEdge(vertex, node) {
+  addEdge (vertex, node) {
     if (this.adjacentList.has(vertex) && this.adjacentList.has(node)) {
       let arr = this.adjacentList.get(vertex)
       if (!arr.includes(node)) arr.push(node)
@@ -30,26 +27,33 @@ export default class Graph {
   }
 
   /**
-   *
+   * Prints what is in the adjacent list
    */
-  print() {
+  print () {
+    const mapAdjacent = []
     this.adjacentList.forEach((value, key) => {
-      console.log('KEY=>', key, "VALUE=>", value)
+      mapAdjacent.push({
+        [key]: value
+      })
     })
+
+    return mapAdjacent
   }
 
   /**
    * Breath First Search
    * @param {*} startNode
    */
-  bfs(startNode) {
+  async bfs (startNode) {
     const visitedObject = () => {
       let arr = {}
-      this.adjacentList.keys().forEach((value, key) => {
+      for (let key of this.adjacentList.keys()) {
         arr[key] = false
-      })
+      }
+      return arr
     }
-    let visited = visitedObject()
+    const graphVisited = []
+    let visited = await visitedObject()
     let queue = []
 
     visited[startNode] = true
@@ -57,7 +61,7 @@ export default class Graph {
 
     while (queue.length) {
       let current = queue.pop()
-      console.log('ORDEM DE VISITA==>', current)
+      graphVisited.push(current)
 
       let arr = this.adjacentList.get(current)
 
@@ -68,6 +72,7 @@ export default class Graph {
         }
       })
     }
+
+    return graphVisited
   }
 }
-

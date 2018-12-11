@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import defaults from 'superagent-defaults'
 import supertest from 'supertest'
 import chai from 'chai'
@@ -8,5 +9,4 @@ chai.use(chaiSubset)
 
 global.app = es.express
 global.expect = chai.expect
-
 global.request = defaults(supertest(global.app))

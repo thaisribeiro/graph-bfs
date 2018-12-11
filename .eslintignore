@@ -1,0 +1,4 @@
+.ebextensions
+node_modules
+test
+coverage
