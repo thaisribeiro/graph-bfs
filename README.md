@@ -3,6 +3,7 @@
 Graph BFS é um algoritmo em node.js que realiza a pesquisa por largura em grafos direcionados e imprime a ordem dos nós(vértices) que foram visitados.
 
 Para saber sobre [Teoria dos grafos](https://pt.wikipedia.org/wiki/Teoria_dos_grafos) 
+
 Como funciona o algoritmo de [BFS - Breadth First Search](https://hackernoon.com/breadth-first-search-in-javascript-e655cd824fa4)
 
 Sinta-se a vontade para baixar ou clonar o código fonte:
