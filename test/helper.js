@@ -1,3 +1,4 @@
+import 'coveralls'
 import 'babel-polyfill'
 import defaults from 'superagent-defaults'
 import supertest from 'supertest'
