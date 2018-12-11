@@ -36,7 +36,7 @@ curl -X GET \
 ## Scripts
 Execução de testes de um arquivo file: 
 ```bash
-npm run test:report --py-api:file=FILENAME
+npm run test:report --graph-bfs:file=FILENAME
 ```
 ou
 ```bash
