@@ -1,5 +1,7 @@
 # graph-bfs - Breadth First Search Digraph
 
+[![Coverage Status](https://coveralls.io/repos/github/thaisribeiro/graph-bfs/badge.svg?branch=master)](https://coveralls.io/github/thaisribeiro/graph-bfs?branch=master)
+
 Graph BFS é um algoritmo em node.js que realiza a pesquisa por largura em grafos direcionados e imprime a ordem dos nós(vértices) que foram visitados.
 
 Para saber sobre [Teoria dos grafos](https://pt.wikipedia.org/wiki/Teoria_dos_grafos) 
